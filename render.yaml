@@ -1,0 +1,25 @@
+# Render.com blueprint for the Medusa store backend.
+services:
+  - type: web
+    name: medusa-store
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        value: redis://127.0.0.1:6379
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECRET
+        generateValue: true
+      - key: STORE_CORS
+        value: https://medusa-store.onrender.com
+      - key: ADMIN_CORS
+        value: https://medusa-store.onrender.com
+      - key: AUTH_CORS
+        value: https://medusa-store.onrender.com
+      - key: PORT
+        value: "9000"

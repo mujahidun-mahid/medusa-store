@@ -22,5 +22,5 @@ ENV NODE_ENV=production \
 
 EXPOSE 9000
 
-# TEMPORARY diagnostic: probe server (goes live fast) to drive boot stages.
-CMD ["sh", "-c", "node probe.js"]
+# Production boot: bundled Redis, no-op migrate guard, then the server.
+CMD ["sh", "-c", "redis-server --daemonize yes --save '' --appendonly no && npx medusa db:migrate && npx medusa start --port ${PORT:-9000} --host 0.0.0.0"]

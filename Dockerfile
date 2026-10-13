@@ -22,6 +22,5 @@ ENV NODE_ENV=production \
 
 EXPOSE 9000
 
-# Ephemeral in-container Redis (queues/cache; shop data lives in Postgres).
-# DB is migrated + seeded; boot only re-runs the no-op migrate guard.
-CMD ["sh", "-c", "redis-server --daemonize yes --save '' --appendonly no && npx medusa db:migrate && npx medusa start --port ${PORT:-9000} --host 0.0.0.0"]
+# TEMPORARY diagnostic: probe server (goes live fast) to drive boot stages.
+CMD ["sh", "-c", "node probe.js"]
